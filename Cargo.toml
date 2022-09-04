@@ -29,3 +29,8 @@ features = ["Win32_Foundation", "Win32_Graphics_Gdi"]
 [target.'cfg(target_os="linux")'.dependencies]
 dbus = "0.9.5"
 xcb = "1.1.1"
+
+
+[[example]]
+name = "Screenshot"
+path = "examples/screenshot.rs"

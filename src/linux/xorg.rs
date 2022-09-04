@@ -1,7 +1,8 @@
-use crate::{DisplayInfo, Image};
+use crate::DisplayInfo;
+use image::DynamicImage;
 use xcb::x::{Drawable, GetImage, ImageFormat};
 
-fn capture(x: i32, y: i32, width: u32, height: u32) -> Option<Image> {
+fn capture(x: i32, y: i32, width: u32, height: u32) -> Option<DynamicImage> {
   let (conn, index) = xcb::Connection::connect(None).ok()?;
 
   let setup = conn.get_setup();
@@ -19,11 +20,11 @@ fn capture(x: i32, y: i32, width: u32, height: u32) -> Option<Image> {
 
   let get_image_reply = conn.wait_for_reply(get_image_cookie).ok()?;
   let bytes = Vec::from(get_image_reply.data());
-
-  Image::from_bgra(width, height, bytes).ok()
+  let rgb_image = image::RgbaImage::from_raw(width, height, bytes).unwrap();
+  Some(image::DynamicImage::ImageRgba8(rgb_image))
 }
 
-pub fn xorg_capture_screen(display_info: &DisplayInfo) -> Option<Image> {
+pub fn xorg_capture_screen(display_info: &DisplayInfo) -> Option<DynamicImage> {
   let x = ((display_info.x as f32) * display_info.scale_factor) as i32;
   let y = ((display_info.y as f32) * display_info.scale_factor) as i32;
   let width = ((display_info.width as f32) * display_info.scale_factor) as u32;
@@ -38,7 +39,7 @@ pub fn xorg_capture_screen_area(
   y: i32,
   width: u32,
   height: u32,
-) -> Option<Image> {
+) -> Option<DynamicImage> {
   let area_x = (((x + display_info.x) as f32) * display_info.scale_factor) as i32;
   let area_y = (((y + display_info.y) as f32) * display_info.scale_factor) as i32;
   let area_width = ((width as f32) * display_info.scale_factor) as u32;
