@@ -2,7 +2,7 @@
 # Bechmark: vs upstream on x11
 |   | Original  | This fork  |
 |---|---|---|
-| Without saving to disk | 90ms  | 20ms  |
+| Without saving to disk | 90ms  | 15ms  |
 | With saving to disk  | 100ms  | 200ms  |
 # Todo
 - [ ] See if wayland works
