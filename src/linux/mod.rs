@@ -8,7 +8,7 @@ use std::env::var_os;
 use wayland::{wayland_capture_screen, wayland_capture_screen_area};
 use xorg::{xorg_capture_screen, xorg_capture_screen_area};
 
-use self::xorg::xorg_capture_screen_raw;
+use self::{xorg::xorg_capture_screen_raw, wayland::wayland_capture_screen_raw};
 
 fn wayland_detect() -> bool {
   let xdg_session_type = var_os("XDG_SESSION_TYPE")
@@ -33,7 +33,7 @@ pub fn capture_screen(display_info: &DisplayInfo) -> Option<DynamicImage> {
 }
 pub fn capture_screen_raw(display_info: &DisplayInfo) -> Option<Vec<u8>> {
   if wayland_detect() {
-    None
+    wayland_capture_screen_raw(display_info)
   } else {
     xorg_capture_screen_raw(display_info)
   }

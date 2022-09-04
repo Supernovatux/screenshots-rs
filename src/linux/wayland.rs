@@ -40,7 +40,6 @@ fn screenshot(x: i32, y: i32, width: i32, height: i32) -> Result<String, dbus::E
   Ok(filename)
 }
 
-
 pub fn wayland_capture_screen(display_info: &DisplayInfo) -> Option<DynamicImage> {
   let x = ((display_info.x as f32) * display_info.scale_factor) as i32;
   let y = ((display_info.y as f32) * display_info.scale_factor) as i32;
@@ -49,6 +48,15 @@ pub fn wayland_capture_screen(display_info: &DisplayInfo) -> Option<DynamicImage
 
   let filename = screenshot(x, y, width as i32, height as i32).ok()?;
   image::open(filename).ok()
+}
+pub fn wayland_capture_screen_raw(display_info: &DisplayInfo) -> Option<Vec<u8>> {
+  let x = ((display_info.x as f32) * display_info.scale_factor) as i32;
+  let y = ((display_info.y as f32) * display_info.scale_factor) as i32;
+  let width = (display_info.width as f32) * display_info.scale_factor;
+  let height = (display_info.height as f32) * display_info.scale_factor;
+
+  let filename = screenshot(x, y, width as i32, height as i32).ok()?;
+  std::fs::read(filename).ok()
 }
 
 pub fn wayland_capture_screen_area(
