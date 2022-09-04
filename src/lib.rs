@@ -35,6 +35,9 @@ impl Screen {
   pub fn capture(&self) -> Option<DynamicImage> {
     capture_screen(&self.display_info)
   }
+  pub fn capture_raw(&self) -> Option<Vec<u8>> {
+    capture_screen_raw(&self.display_info)
+  }
 
   /**
    * 截取指定区域

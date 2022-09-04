@@ -5,6 +5,7 @@
 | Without saving to disk | 90ms  | 15ms  |
 | With saving to disk  | 100ms  | 200ms  |
 # Todo
+- [ ] Currently outputs brga image as rgba image. Make it proper
 - [ ] See if wayland works
 - [ ] Make it cross platform
 # screenshots
