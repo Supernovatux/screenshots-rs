@@ -4,15 +4,6 @@ pub use display_info::DisplayInfo;
 use ::image::DynamicImage;
 //pub use image::Image;
 
-#[cfg(target_os = "macos")]
-mod darwin;
-#[cfg(target_os = "macos")]
-use darwin::*;
-
-#[cfg(target_os = "windows")]
-mod win32;
-#[cfg(target_os = "windows")]
-use win32::*;
 
 #[cfg(target_os = "linux")]
 mod linux;

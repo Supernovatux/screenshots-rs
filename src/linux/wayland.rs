@@ -3,7 +3,7 @@ use dbus::{self, blocking::Connection};
 use image::DynamicImage;
 use std::{
   env::temp_dir,
-  fs, io,
+  fs,
   time::{Duration, SystemTime, UNIX_EPOCH},
 };
 
@@ -40,11 +40,6 @@ fn screenshot(x: i32, y: i32, width: i32, height: i32) -> Result<String, dbus::E
   Ok(filename)
 }
 
-fn read_image(filename: String) -> Result<Vec<u8>, io::Error> {
-  let buffer = fs::read(&filename)?;
-  fs::remove_file(&filename)?;
-  Ok(buffer)
-}
 
 pub fn wayland_capture_screen(display_info: &DisplayInfo) -> Option<DynamicImage> {
   let x = ((display_info.x as f32) * display_info.scale_factor) as i32;
