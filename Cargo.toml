@@ -12,6 +12,7 @@ keywords = ["screenshots", "screenshot", "screen", "capture"]
 
 [dependencies]
 png = "0.17.5"
+image = "*"
 display-info = "0.3.2"
 
 [target.'cfg(target_os = "macos")'.dependencies]
