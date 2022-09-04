@@ -48,6 +48,10 @@ impl Screen {
    * 截取指定区域
    * 区域x,y为相对于当前屏幕的x,y坐标
    */
+  /** 
+   * Cut out the specified area
+   * The area x, y is the x, y coordinates relative to the current screen
+  */
   pub fn capture_area(&self, x: i32, y: i32, width: u32, height: u32) -> Option<Image> {
     let display_info = self.display_info;
     let screen_x2 = display_info.x + display_info.width as i32;
@@ -59,6 +63,7 @@ impl Screen {
     let mut y2 = y1 + height as i32;
 
     // x y 必须在屏幕范围内
+    // x y must be within screen bounds
     if x1 < display_info.x {
       x1 = display_info.x;
     } else if x1 > screen_x2 {
