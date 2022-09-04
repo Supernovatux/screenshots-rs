@@ -2,8 +2,11 @@
 # Bechmark: vs upstream on x11
 |   | Original  | This fork  |
 |---|---|---|
-| Without saving to disk |   | 20ms  |
-| With saving to disk  |   | 200ms  |
+| Without saving to disk | 90ms  | 20ms  |
+| With saving to disk  | 100ms  | 200ms  |
+# Todo
+- [ ] See if wayland works
+- [ ] Make it cross platform
 # screenshots
 
 A screenshots library for Linux(X11、wayland).
@@ -49,7 +52,7 @@ fn main() {
 - `Screen::new(display_info)`: Get screen from [display info](https://docs.rs/display-info/latest/display_info/struct.DisplayInfo.html), return `Option<Screen>`.
 - `Screen::all()`: Get all screen, return `Vec<Screen>`.
 - `Screen::from_point(x, y)`: Get screen from point, return `Option<Screen>`.
-- `screen.capture()`: capture screen screenshot [image](https://docs.rs/screenshots/latest/screenshots/struct.Image.html), return `Option<DynamicImage>`.
+- `screen.capture()`: capture screen screenshot [image](https://docs.rs/image/latest/image/enum.DynamicImage.html), return `Option<DynamicImage>`.
 - `screen.capture_area(x, y, width, height)`: Capture the current screen the designated area, return `Option<DynamicImage>`.
 
 
