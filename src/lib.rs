@@ -1,17 +1,9 @@
 pub use display_info::DisplayInfo;
 
-mod image;
-pub use image::Image;
+//mod image;
+use ::image::DynamicImage;
+//pub use image::Image;
 
-#[cfg(target_os = "macos")]
-mod darwin;
-#[cfg(target_os = "macos")]
-use darwin::*;
-
-#[cfg(target_os = "windows")]
-mod win32;
-#[cfg(target_os = "windows")]
-use win32::*;
 
 #[cfg(target_os = "linux")]
 mod linux;
@@ -40,7 +32,7 @@ impl Screen {
     Some(Screen::new(&display_info))
   }
 
-  pub fn capture(&self) -> Option<Image> {
+  pub fn capture(&self) -> Option<DynamicImage> {
     capture_screen(&self.display_info)
   }
 
@@ -48,7 +40,11 @@ impl Screen {
    * 截取指定区域
    * 区域x,y为相对于当前屏幕的x,y坐标
    */
-  pub fn capture_area(&self, x: i32, y: i32, width: u32, height: u32) -> Option<Image> {
+  /**
+   * Cut out the specified area
+   * The area x, y is the x, y coordinates relative to the current screen
+   */
+  pub fn capture_area(&self, x: i32, y: i32, width: u32, height: u32) -> Option<DynamicImage> {
     let display_info = self.display_info;
     let screen_x2 = display_info.x + display_info.width as i32;
     let screen_y2 = display_info.y + display_info.height as i32;
@@ -59,6 +55,7 @@ impl Screen {
     let mut y2 = y1 + height as i32;
 
     // x y 必须在屏幕范围内
+    // x y must be within screen bounds
     if x1 < display_info.x {
       x1 = display_info.x;
     } else if x1 > screen_x2 {

@@ -9,22 +9,23 @@ homepage = "https://github.com/nashaofu/screenshots-rs"
 repository = "https://github.com/nashaofu/screenshots-rs.git"
 keywords = ["screenshots", "screenshot", "screen", "capture"]
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
+[profile.release]
+lto = "fat"
+codegen-units = 1
+panic = "abort"
+opt-level = 3 
+overflow-checks = false
+debug = 2
 [dependencies]
-png = "0.17.5"
-display-info = "0.3.2"
+image = "*"
+display-info = "*"
 
-[target.'cfg(target_os = "macos")'.dependencies]
-core-graphics = "0.22.3"
-
-[target.'cfg(target_os="windows")'.dependencies]
-sfhash = "0.1.1"
-widestring = "0.5.1"
-
-[target.'cfg(target_os = "windows")'.dependencies.windows]
-version = "0.33.0"
-features = ["Win32_Foundation", "Win32_Graphics_Gdi"]
 
 [target.'cfg(target_os="linux")'.dependencies]
-dbus = "0.9.5"
-xcb = "1.1.1"
+dbus = "*"
+xcb = "*"
+
+
+[[example]]
+name = "Screenshot"
+path = "examples/screenshot.rs"
